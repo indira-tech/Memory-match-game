@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Memory Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .welcome-container {
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 25px;
+    }
+
+    .emoji {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      transition: border 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #f8b500;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 20px;
+      background: #f8b500;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #d19a00;
+    }
+
+    .greeting {
+      font-size: 1.3rem;
+      color: #444;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-container">
+    <div class="emoji">🧠🎮✨</div>
+    <h1>Welcome to the Memory Game!</h1>
+    <div id="nameForm">
+      <p>Please enter your name to get started:</p>
+      <input type="text" id="username" placeholder="Your Name" />
+      <br />
+      <button onclick="saveName()">Start Game</button>
+    </div>
+    <div id="greeting" class="greeting" style="display: none;"></div>
+  </div>
+
+  <script>
+    const savedName = localStorage.getItem('memoryGameUser');
+    const nameForm = document.getElementById('nameForm');
+    const greetingDiv = document.getElementById('greeting');
+
+    if (savedName) {
+      nameForm.style.display = 'none';
+      greetingDiv.style.display = 'block';
+      greetingDiv.textContent = `Welcome back, ${savedName}! 🎉`;
+      setTimeout(() => window.location.href = 'game.html', 1500);
+    }
+
+    function saveName() {
+      const nameInput = document.getElementById('username').value.trim();
+      if (nameInput !== '') {
+        localStorage.setItem('memoryGameUser', nameInput);
+        greetingDiv.style.display = 'block';
+        nameForm.style.display = 'none';
+        greetingDiv.textContent = `Welcome, ${nameInput}! 🎮 Let's start the game!`;
+        setTimeout(() => window.location.href = 'game.html', 1500);
+      } else {
+        alert('Please enter your name!');
+      }
+    }
+  </script>
+</body>
+</html>
